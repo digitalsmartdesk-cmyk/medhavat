@@ -1,0 +1,632 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>My Account — Medhavat</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --green:#1A4D22;
+    --green-deep:#112E14;
+    --green-soft:#2A6030;
+    --green-tint:#E4EFE0;
+    --green-tint-2:#C8DFC0;
+    --navy:#1E2D6E;
+    --navy-soft:#2E3D88;
+    --gold:#A67820;
+    --gold-soft:#C89A30;
+    --gold-light:#E8C96A;
+    --cream:#F5EDD8;
+    --cream-warm:#EDE0C4;
+    --ink:#1A1510;
+    --ink-soft:#5A4E3C;
+    --rule:rgba(26,21,16,.10);
+    --rule-strong:rgba(26,21,16,.18);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--cream);color:var(--ink);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  img{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+  button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit}
+  input{font-family:inherit;font-size:15px;color:var(--ink)}
+  h1,h2,h3,h4,.serif{font-family:'Cormorant Garamond',serif;font-weight:600;letter-spacing:.01em;color:var(--ink)}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 40px}
+  .eyebrow{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--gold)}
+
+  /* ====================== HEADER ====================== */
+  .header{position:sticky;top:0;z-index:50;background:rgba(245,237,216,.94);backdrop-filter:saturate(140%) blur(10px);border-bottom:1px solid var(--rule)}
+  .header-inner{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:84px;gap:24px}
+  .brand img{height:52px;width:auto}
+  .nav{display:flex;gap:38px;justify-content:center}
+  .nav a{font-size:14px;font-weight:500;color:var(--ink);letter-spacing:.02em;position:relative;padding:6px 0}
+  .nav a.active::after,.nav a:hover::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:2px;background:var(--gold)}
+  .header-right{display:flex;justify-content:flex-end;align-items:center;gap:18px}
+  .icon-btn{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;color:var(--ink);transition:background .2s}
+  .icon-btn:hover{background:rgba(26,77,34,.08)}
+  .cart{position:relative}
+  .cart-badge{position:absolute;top:4px;right:4px;background:var(--gold);color:#fff;font-size:10px;font-weight:700;min-width:16px;height:16px;border-radius:8px;display:grid;place-items:center;padding:0 4px}
+  .account-chip{display:flex;align-items:center;gap:9px;padding:6px 14px 6px 6px;border-radius:999px;border:1px solid var(--rule);background:#fff}
+  .account-chip .ava{width:28px;height:28px;border-radius:50%;background:var(--green);color:#FFF8E7;display:grid;place-items:center;font-family:'Cormorant Garamond',serif;font-size:13px;font-weight:600}
+  .account-chip .nm{font-size:13px;font-weight:600;color:var(--ink)}
+
+  /* ====================== HAMBURGER ====================== */
+  .hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;width:40px;height:40px;padding:8px;cursor:pointer;border:0;background:none;border-radius:6px}
+  .hamburger span{display:block;width:100%;height:1.5px;background:var(--ink);border-radius:2px;transition:transform .25s,opacity .2s}
+  .hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+  .hamburger.open span:nth-child(2){opacity:0}
+  .hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+  .mobile-nav{display:none;position:fixed;inset:0;top:70px;background:rgba(245,237,216,.97);backdrop-filter:blur(10px);z-index:40;flex-direction:column;padding:32px 24px;gap:0;overflow-y:auto}
+  .mobile-nav.open{display:flex}
+  .mobile-nav a.nav-link{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:500;color:var(--ink);padding:16px 0;border-bottom:1px solid var(--rule);display:flex;justify-content:space-between;align-items:center}
+  .mobile-nav a.nav-link::after{content:"\2192";font-family:'DM Sans',sans-serif;font-size:16px;color:var(--gold)}
+  .mobile-nav .m-actions{display:flex;gap:12px;margin-top:32px}
+  .mobile-nav .m-actions a{font-size:14px;font-weight:600;padding:14px 20px;border-radius:999px;flex:1;text-align:center}
+  .m-gold{background:var(--gold);color:#fff}
+  .m-outline{border:1.5px solid var(--navy);color:var(--navy)}
+
+  /* ====================== ACCOUNT HERO ====================== */
+  .acc-hero{background:var(--green);color:#F5EDD8;padding:44px 0 52px;position:relative;overflow:hidden}
+  .acc-hero-pattern{position:absolute;inset:0;opacity:.07;pointer-events:none}
+  .acc-hero-inner{position:relative;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+  .acc-hero .greet{display:flex;align-items:center;gap:20px}
+  .acc-hero .greet .ava-lg{width:64px;height:64px;border-radius:50%;background:var(--gold);color:#1A1510;display:grid;place-items:center;font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;flex-shrink:0}
+  .acc-hero .greet .eyebrow{color:var(--gold-light);margin-bottom:6px}
+  .acc-hero .greet h1{font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:500;color:#FFF8E7;line-height:1.05;letter-spacing:.01em}
+  .acc-hero .greet h1 em{font-style:italic;color:var(--gold-light)}
+  .acc-hero .quick{display:flex;gap:14px}
+  .acc-hero .quick .q{text-align:center;background:rgba(255,255,255,.06);border:1px solid rgba(245,237,216,.15);border-radius:12px;padding:16px 22px;min-width:104px}
+  .acc-hero .quick .q .n{font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--gold-light);line-height:1}
+  .acc-hero .quick .q .l{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:rgba(245,237,216,.65);margin-top:6px}
+
+  /* ====================== LAYOUT ====================== */
+  .acc-layout{display:grid;grid-template-columns:248px 1fr;gap:36px;padding:44px 0 90px;align-items:start}
+
+  /* Sidebar */
+  .side{position:sticky;top:108px;display:flex;flex-direction:column;gap:4px;background:#fff;border:1px solid var(--rule);border-radius:14px;padding:14px;box-shadow:0 12px 32px -24px rgba(26,21,16,.18)}
+  .side a{display:flex;align-items:center;gap:13px;padding:13px 15px;border-radius:9px;font-size:14px;font-weight:500;color:var(--ink-soft);transition:background .15s,color .15s;cursor:pointer}
+  .side a svg{flex-shrink:0;color:currentColor;opacity:.75}
+  .side a:hover{background:var(--cream-warm);color:var(--ink)}
+  .side a.on{background:var(--green-tint);color:var(--green-deep);font-weight:600}
+  .side a.on svg{opacity:1;color:var(--green)}
+  .side .divide{height:1px;background:var(--rule);margin:8px 6px}
+  .side a.signout{color:#C0392B}
+  .side a.signout:hover{background:rgba(192,57,43,.07)}
+
+  /* Panels */
+  .panel{display:none}
+  .panel.on{display:block}
+  .panel-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:24px}
+  .panel-head h2{font-size:28px;line-height:1.1}
+  .panel-head p{font-size:13px;color:var(--ink-soft);margin-top:4px}
+  .panel-head .link{font-size:13px;font-weight:600;color:var(--green-deep);border-bottom:1.5px solid var(--green-tint-2);padding-bottom:2px;white-space:nowrap}
+  .panel-head .link:hover{color:var(--green)}
+
+  /* Order cards */
+  .order-card{background:#fff;border:1px solid var(--rule);border-radius:14px;overflow:hidden;margin-bottom:18px;box-shadow:0 10px 28px -22px rgba(26,21,16,.16)}
+  .oc-top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 24px;border-bottom:1px solid var(--rule);background:var(--cream)}
+  .oc-top .meta{display:flex;gap:28px;flex-wrap:wrap}
+  .oc-top .meta .m .k{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);font-weight:700;margin-bottom:3px}
+  .oc-top .meta .m .v{font-size:14px;font-weight:600;color:var(--ink)}
+  .oc-status{display:inline-flex;align-items:center;gap:8px;padding:8px 15px;border-radius:999px;font-size:12px;font-weight:700;letter-spacing:.05em;white-space:nowrap}
+  .oc-status.delivered{background:var(--green-tint);color:var(--green-deep)}
+  .oc-status.transit{background:rgba(166,120,32,.13);color:#7A5A10}
+  .oc-status.transit .dot{width:8px;height:8px;border-radius:50%;background:var(--gold);animation:pulse 2s infinite}
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.82)}}
+  .oc-status .check{width:15px;height:15px}
+  .oc-body{padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+  .oc-thumbs{display:flex;align-items:center;gap:-8px}
+  .oc-thumbs .th{width:52px;height:52px;border-radius:9px;overflow:hidden;border:2px solid #fff;background:var(--cream-warm);margin-left:-10px;box-shadow:0 2px 6px rgba(26,21,16,.12)}
+  .oc-thumbs .th:first-child{margin-left:0}
+  .oc-thumbs .th img{width:100%;height:100%;object-fit:cover}
+  .oc-thumbs .more{width:52px;height:52px;border-radius:9px;background:var(--green-tint);color:var(--green-deep);display:grid;place-items:center;font-size:13px;font-weight:700;margin-left:-10px;border:2px solid #fff}
+  .oc-summary{flex:1;min-width:0}
+  .oc-summary .items{font-size:14px;color:var(--ink);font-weight:500}
+  .oc-summary .total{font-size:12px;color:var(--ink-soft);margin-top:3px}
+  .oc-summary .total strong{font-family:'Cormorant Garamond',serif;color:var(--green-deep);font-size:15px;font-weight:600}
+  .oc-actions{display:flex;gap:10px;flex-shrink:0}
+  .oc-btn{display:inline-flex;align-items:center;gap:8px;padding:11px 17px;border-radius:9px;font-size:13px;font-weight:600;letter-spacing:.02em;transition:all .15s;white-space:nowrap}
+  .oc-btn.primary{background:var(--green);color:#fff}
+  .oc-btn.primary:hover{background:var(--green-deep)}
+  .oc-btn.ghost{border:1.5px solid var(--rule-strong);color:var(--ink)}
+  .oc-btn.ghost:hover{border-color:var(--green);background:var(--cream-warm)}
+
+  /* Address grid */
+  .addr-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .addr-card{background:#fff;border:1px solid var(--rule);border-radius:14px;padding:24px;position:relative;box-shadow:0 10px 28px -22px rgba(26,21,16,.16)}
+  .addr-card.default{border-color:var(--green-tint-2);background:linear-gradient(180deg,var(--green-tint),#fff 40%)}
+  .addr-tag{display:inline-flex;align-items:center;gap:7px;font-size:10px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--green-deep);margin-bottom:14px}
+  .addr-tag .home-ic{color:var(--green)}
+  .addr-card h3{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;margin-bottom:8px}
+  .addr-card p{font-size:13px;color:var(--ink-soft);line-height:1.65}
+  .addr-card .phone{margin-top:10px;font-size:13px;color:var(--ink);font-weight:500}
+  .addr-actions{display:flex;gap:16px;margin-top:18px;padding-top:16px;border-top:1px solid var(--rule)}
+  .addr-actions a{font-size:13px;font-weight:600;color:var(--green-deep)}
+  .addr-actions a:hover{color:var(--green)}
+  .addr-actions a.del{color:var(--ink-soft)}
+  .addr-actions a.del:hover{color:#C0392B}
+  .addr-add{border:1.5px dashed var(--rule-strong);background:transparent;border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:24px;min-height:200px;color:var(--ink-soft);transition:border-color .15s,color .15s,background .15s}
+  .addr-add:hover{border-color:var(--green);color:var(--green-deep);background:var(--green-tint)}
+  .addr-add .plus{width:44px;height:44px;border-radius:50%;border:1.5px solid currentColor;display:grid;place-items:center}
+  .addr-add .t{font-size:14px;font-weight:600}
+
+  /* Wishlist grid */
+  .wish-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .wish-card{background:#fff;border:1px solid var(--rule);border-radius:12px;overflow:hidden;transition:transform .2s,box-shadow .2s}
+  .wish-card:hover{transform:translateY(-3px);box-shadow:0 18px 40px -20px rgba(26,21,16,.2)}
+  .wish-pic{aspect-ratio:1/1;position:relative;background:var(--cream-warm)}
+  .wish-pic img{width:100%;height:100%;object-fit:cover}
+  .wish-tag{position:absolute;top:12px;left:12px;background:var(--navy);color:#fff;font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;padding:5px 10px;border-radius:3px}
+  .wish-tag.hp{background:var(--green)}
+  .wish-heart{position:absolute;top:12px;right:12px;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.94);display:grid;place-items:center;color:#C0392B}
+  .wish-body{padding:18px}
+  .wish-body h3{font-size:18px;line-height:1.15;margin-bottom:10px}
+  .wish-body .price{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--green-deep)}
+  .wish-btns{display:flex;gap:10px;margin-top:14px}
+  .wish-add{display:inline-flex;align-items:center;gap:7px;background:var(--green);color:#fff;padding:9px 14px;border-radius:999px;font-size:12px;font-weight:600;flex:1;justify-content:center}
+  .wish-add:hover{background:var(--green-deep)}
+  .wish-remove{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:9px 14px;border-radius:999px;font-size:12px;font-weight:600;border:1.5px solid var(--rule-strong);color:var(--ink-soft);background:transparent}
+  .wish-remove:hover{border-color:#C0392B;color:#C0392B;background:rgba(192,57,43,.05)}
+
+  /* Profile form */
+  .profile-card{background:#fff;border:1px solid var(--rule);border-radius:14px;padding:32px;max-width:680px;box-shadow:0 10px 28px -22px rgba(26,21,16,.16)}
+  .pf-row{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px}
+  .field{display:flex;flex-direction:column;gap:7px}
+  .field.full{grid-column:1/-1}
+  .field label{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--green-deep);font-weight:700}
+  .input{width:100%;background:var(--cream-warm);border:1.5px solid var(--rule);border-radius:10px;padding:13px 15px;font-size:15px;color:var(--ink);transition:border-color .15s,background .15s,box-shadow .15s;outline:none}
+  .input:hover{border-color:var(--rule-strong)}
+  .input:focus{border-color:var(--green);background:#fff;box-shadow:0 0 0 4px rgba(26,77,34,.10)}
+  .pf-actions{display:flex;gap:12px;margin-top:26px;padding-top:24px;border-top:1px solid var(--rule)}
+  .save-btn{display:inline-flex;align-items:center;gap:9px;background:var(--gold);color:#fff;padding:14px 26px;border-radius:10px;font-size:13px;font-weight:700;letter-spacing:.08em;transition:background .15s,transform .15s}
+  .save-btn:hover{background:var(--gold-soft);transform:translateY(-1px)}
+  .cancel-btn{padding:14px 22px;font-size:13px;font-weight:600;color:var(--ink-soft)}
+  .cancel-btn:hover{color:var(--green-deep)}
+  .pref-card{background:#fff;border:1px solid var(--rule);border-radius:14px;padding:26px 32px;max-width:680px;margin-top:20px;box-shadow:0 10px 28px -22px rgba(26,21,16,.16)}
+  .pref-card h3{font-size:18px;margin-bottom:18px}
+  .pref-row{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0;border-bottom:1px solid var(--rule)}
+  .pref-row:last-child{border-bottom:0}
+  .pref-row .pr-text .t{font-size:14px;font-weight:600;color:var(--ink)}
+  .pref-row .pr-text .d{font-size:12px;color:var(--ink-soft);margin-top:2px}
+  .toggle{width:46px;height:26px;border-radius:999px;background:var(--rule-strong);position:relative;flex-shrink:0;transition:background .2s;cursor:pointer}
+  .toggle::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:transform .2s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+  .toggle.on{background:var(--green)}
+  .toggle.on::after{transform:translateX(20px)}
+
+  /* ====================== FOOTER (mini) ====================== */
+  footer.mini{background:#110E0A;color:rgba(245,237,216,.55);padding:26px 0}
+  .mini-inner{display:flex;align-items:center;justify-content:space-between;font-size:12px}
+  .mini-inner .links{display:flex;gap:24px}
+  .mini-inner a:hover{color:#FFF8E7}
+  .mini-inner .l{color:rgba(245,237,216,.7)}
+
+  /* ====================== RESPONSIVE ====================== */
+  @media(max-width:900px){
+    .wrap{padding:0 28px}
+    .header-inner{grid-template-columns:1fr auto;height:70px}
+    .nav,.account-chip{display:none}
+    .hamburger{display:flex}
+    .mobile-nav{top:70px}
+    .acc-hero{padding:32px 0 40px}
+    .acc-hero-inner{flex-direction:column;align-items:flex-start;gap:24px}
+    .acc-hero .greet h1{font-size:30px}
+    .acc-hero .quick{width:100%}
+    .acc-hero .quick .q{flex:1;min-width:0;padding:14px 12px}
+    /* Sidebar becomes horizontal scroll tabs */
+    .acc-layout{grid-template-columns:1fr;gap:24px;padding:28px 0 64px}
+    .side{position:static;flex-direction:row;overflow-x:auto;padding:8px;gap:4px;scrollbar-width:none}
+    .side::-webkit-scrollbar{display:none}
+    .side a{white-space:nowrap;padding:11px 16px}
+    .side a span.lbl{display:inline}
+    .side .divide,.side a.signout{display:none}
+    .addr-grid{grid-template-columns:1fr}
+    .wish-grid{grid-template-columns:repeat(2,1fr)}
+    .mini-inner{flex-direction:column;gap:12px;text-align:center}
+  }
+  @media(max-width:600px){
+    .wrap{padding:0 18px}
+    .header-inner{height:64px}
+    .brand img{height:40px}
+    .mobile-nav{top:64px}
+    .acc-hero .greet{gap:14px}
+    .acc-hero .greet .ava-lg{width:52px;height:52px;font-size:21px}
+    .acc-hero .greet h1{font-size:25px}
+    .acc-hero .quick .q .n{font-size:23px}
+    .panel-head{flex-direction:column;align-items:flex-start;gap:8px}
+    .panel-head h2{font-size:23px}
+    .oc-top{flex-direction:column;align-items:flex-start;gap:14px}
+    .oc-body{flex-direction:column;align-items:flex-start;gap:16px}
+    .oc-actions{width:100%}
+    .oc-btn{flex:1;justify-content:center}
+    .wish-grid{grid-template-columns:1fr}
+    .pf-row{grid-template-columns:1fr}
+    .pf-actions{flex-direction:column}
+    .save-btn,.cancel-btn{justify-content:center;text-align:center}
+  }
+  svg{display:block}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header" data-screen-label="Header">
+  <div class="wrap header-inner">
+    <a class="brand" href="index.html">
+      <img src="assets/images/logo.png" alt="Medhavat — Wise Flours & Mixes" />
+    </a>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="shop.html">Shop</a>
+      <a href="account.html" class="active">Account</a>
+      <a href="login.html">Login</a>
+      <a href="checkout.html">Cart</a>
+    </nav>
+    <div class="header-right">
+      <div class="account-chip">
+        <span class="ava">A</span>
+        <span class="nm">Ananya</span>
+      </div>
+      <button class="icon-btn cart" aria-label="Cart" onclick="location.href='checkout.html'">
+        <svg width="18" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h12l-1.2 11a2 2 0 0 1-2 1.8H9.2a2 2 0 0 1-2-1.8L6 7Z"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg>
+        <span class="cart-badge">2</span>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile nav -->
+<nav class="mobile-nav" id="mobile-nav">
+  <a href="index.html" class="nav-link">Home</a>
+  <a href="shop.html" class="nav-link">Shop</a>
+  <a href="account.html" class="nav-link">Account</a>
+  <a href="login.html" class="nav-link">Login</a>
+  <a href="checkout.html" class="nav-link">Cart</a>
+  <div class="m-actions">
+    <a class="m-gold" href="shop.html">Shop Now →</a>
+    <a class="m-outline" href="login.html">Sign Out</a>
+  </div>
+</nav>
+
+<!-- ACCOUNT HERO -->
+<section class="acc-hero" data-screen-label="Account Hero">
+  <svg class="acc-hero-pattern" viewBox="0 0 1200 220" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs>
+      <pattern id="ah" x="0" y="0" width="220" height="220" patternUnits="userSpaceOnUse" patternTransform="rotate(15)">
+        <path d="M110 30 L110 170" stroke="#E8C96A" stroke-width="1.2" stroke-linecap="round"/>
+        <path d="M110 60 C 95 50, 80 55, 78 70 C 93 70, 105 65, 110 60Z" fill="none" stroke="#E8C96A" stroke-width="1" stroke-linecap="round"/>
+        <path d="M110 80 C 125 70, 140 75, 142 90 C 127 90, 115 85, 110 80Z" fill="none" stroke="#E8C96A" stroke-width="1" stroke-linecap="round"/>
+        <path d="M110 100 C 95 90, 80 95, 78 110 C 93 110, 105 105, 110 100Z" fill="none" stroke="#E8C96A" stroke-width="1" stroke-linecap="round"/>
+        <circle cx="40" cy="190" r="1.8" fill="#E8C96A"/>
+        <circle cx="190" cy="40" r="1.8" fill="#E8C96A"/>
+      </pattern>
+    </defs>
+    <rect width="1200" height="220" fill="url(#ah)"/>
+  </svg>
+  <div class="wrap acc-hero-inner">
+    <div class="greet">
+      <div class="ava-lg">A</div>
+      <div>
+        <div class="eyebrow">My Account</div>
+        <h1>Welcome back, <em>Ananya</em></h1>
+      </div>
+    </div>
+    <div class="quick">
+      <div class="q"><div class="n">14</div><div class="l">Orders</div></div>
+      <div class="q"><div class="n">6</div><div class="l">Wishlist</div></div>
+      <div class="q"><div class="n">₹420</div><div class="l">Rewards</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- LAYOUT -->
+<div class="wrap">
+  <div class="acc-layout" data-screen-label="Account Dashboard">
+
+    <!-- SIDEBAR -->
+    <nav class="side">
+      <a class="on" data-panel="orders">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 4 6v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6l-2-4Z"/><path d="M4 6h16"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <span class="lbl">My Orders</span>
+      </a>
+      <a data-panel="addresses">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a7 7 0 0 1 7 7c0 5-7 13-7 13S5 14 5 9a7 7 0 0 1 7-7Z"/><circle cx="12" cy="9" r="2.5"/></svg>
+        <span class="lbl">Addresses</span>
+      </a>
+      <a data-panel="wishlist">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9Z"/></svg>
+        <span class="lbl">Wishlist</span>
+      </a>
+      <a data-panel="profile">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M5 21c0-4 3-6 7-6s7 2 7 6"/></svg>
+        <span class="lbl">Profile &amp; Settings</span>
+      </a>
+      <div class="divide"></div>
+      <a href="order-tracking.html">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h14l3 4v6h-2"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/><path d="M3 7v11h2"/></svg>
+        <span class="lbl">Track an Order</span>
+      </a>
+      <a class="signout" href="login.html">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/></svg>
+        <span class="lbl">Sign Out</span>
+      </a>
+    </nav>
+
+    <!-- CONTENT -->
+    <div class="content">
+
+      <!-- ORDERS PANEL -->
+      <section class="panel on" id="panel-orders">
+        <div class="panel-head">
+          <div>
+            <h2>My orders</h2>
+            <p>14 orders since you joined in March 2024</p>
+          </div>
+          <a class="link" href="#">Download order history →</a>
+        </div>
+
+        <!-- Order 1 — Delivered -->
+        <article class="order-card">
+          <div class="oc-top">
+            <div class="meta">
+              <div class="m"><div class="k">Order</div><div class="v">#MV-2024-1847</div></div>
+              <div class="m"><div class="k">Placed</div><div class="v">18 Dec 2024</div></div>
+              <div class="m"><div class="k">Total</div><div class="v">₹598</div></div>
+            </div>
+            <span class="oc-status delivered"><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 7 9 18l-5-5"/></svg>Delivered</span>
+          </div>
+          <div class="oc-body">
+            <div class="oc-thumbs">
+              <div class="th"><img src="assets/images/wheat-atta.jpg" alt="Whole Wheat Atta" /></div>
+            </div>
+            <div class="oc-summary">
+              <div class="items">Whole Wheat Atta × 2</div>
+              <div class="total">Total <strong>₹598</strong></div>
+            </div>
+            <div class="oc-actions">
+              <a class="oc-btn primary" href="shop.html">Reorder</a>
+              <button class="oc-btn ghost">View Details</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Order 2 — In Transit -->
+        <article class="order-card">
+          <div class="oc-top">
+            <div class="meta">
+              <div class="m"><div class="k">Order</div><div class="v">#MV-2024-1792</div></div>
+              <div class="m"><div class="k">Placed</div><div class="v">12 Dec 2024</div></div>
+              <div class="m"><div class="k">Total</div><div class="v">₹607</div></div>
+            </div>
+            <span class="oc-status transit"><span class="dot"></span>In Transit</span>
+          </div>
+          <div class="oc-body">
+            <div class="oc-thumbs">
+              <div class="th"><img src="assets/images/multigrain-atta.jpg" alt="Multigrain Atta" /></div>
+              <div class="th"><img src="assets/images/idli-mix.jpg" alt="Premium Idli Mix" /></div>
+            </div>
+            <div class="oc-summary">
+              <div class="items">Multigrain Atta × 1, Premium Idli Mix × 2</div>
+              <div class="total">Total <strong>₹349 + ₹258</strong></div>
+            </div>
+            <div class="oc-actions">
+              <a class="oc-btn primary" href="order-tracking.html">Track Order</a>
+              <button class="oc-btn ghost">View Details</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Order 3 — Delivered -->
+        <article class="order-card">
+          <div class="oc-top">
+            <div class="meta">
+              <div class="m"><div class="k">Order</div><div class="v">#MV-2024-1685</div></div>
+              <div class="m"><div class="k">Placed</div><div class="v">28 Nov 2024</div></div>
+              <div class="m"><div class="k">Total</div><div class="v">₹566</div></div>
+            </div>
+            <span class="oc-status delivered"><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 7 9 18l-5-5"/></svg>Delivered</span>
+          </div>
+          <div class="oc-body">
+            <div class="oc-thumbs">
+              <div class="th"><img src="assets/images/ragi-flour.jpg" alt="Ragi Flour" /></div>
+              <div class="th"><img src="assets/images/bajra-flour.jpg" alt="Bajra Flour" /></div>
+            </div>
+            <div class="oc-summary">
+              <div class="items">Ragi Flour × 3, Bajra Flour × 1</div>
+              <div class="total">Total <strong>₹447 + ₹119</strong></div>
+            </div>
+            <div class="oc-actions">
+              <a class="oc-btn primary" href="shop.html">Reorder</a>
+              <button class="oc-btn ghost">View Details</button>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <!-- ADDRESSES PANEL -->
+      <section class="panel" id="panel-addresses">
+        <div class="panel-head">
+          <div>
+            <h2>Saved addresses</h2>
+            <p>Manage where your orders get delivered</p>
+          </div>
+        </div>
+        <div class="addr-grid">
+          <div class="addr-card default">
+            <div class="addr-tag"><svg class="home-ic" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11 12 3l9 8"/><path d="M5 10v10h14V10"/></svg>Home · Default</div>
+            <h3>Ananya Sharma</h3>
+            <p>42 Dharampeth Layout<br/>Near Seminary Hills<br/>Nagpur 440010, Maharashtra</p>
+            <div class="phone">+91 98230 12345</div>
+            <div class="addr-actions">
+              <a href="#">Edit</a>
+              <a href="#">Set delivery default</a>
+            </div>
+          </div>
+          <div class="addr-card">
+            <div class="addr-tag" style="color:var(--navy)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>Office</div>
+            <h3>Ananya Sharma</h3>
+            <p>3rd Floor, Empress Mall<br/>Residency Road<br/>Nagpur 440012, Maharashtra</p>
+            <div class="phone">+91 712 2445 678</div>
+            <div class="addr-actions">
+              <a href="#">Edit</a>
+              <a href="#">Set delivery default</a>
+              <a class="del" href="#">Delete</a>
+            </div>
+          </div>
+          <button class="addr-add">
+            <span class="plus"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+            <span class="t">Add New Address</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- WISHLIST PANEL -->
+      <section class="panel" id="panel-wishlist">
+        <div class="panel-head">
+          <div>
+            <h2>Your wishlist</h2>
+            <p>3 products saved for later</p>
+          </div>
+          <a class="link" href="shop.html">Browse all products →</a>
+        </div>
+        <div class="wish-grid">
+          <div class="wish-card">
+            <div class="wish-pic">
+              <span class="wish-tag">Gluten Free</span>
+              <button class="wish-heart"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9Z"/></svg></button>
+              <img src="assets/images/ragi-flour.jpg" alt="Ragi Flour" />
+            </div>
+            <div class="wish-body">
+              <h3>Ragi Flour</h3>
+              <div class="price">₹149</div>
+              <div class="wish-btns">
+                <button class="wish-add">Add to Cart <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+                <button class="wish-remove">Remove</button>
+              </div>
+            </div>
+          </div>
+          <div class="wish-card">
+            <div class="wish-pic">
+              <button class="wish-heart"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9Z"/></svg></button>
+              <img src="assets/images/chana-sattu.jpg" alt="Chana Sattu" />
+            </div>
+            <div class="wish-body">
+              <h3>Chana Sattu</h3>
+              <div class="price">₹99</div>
+              <div class="wish-btns">
+                <button class="wish-add">Add to Cart <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+                <button class="wish-remove">Remove</button>
+              </div>
+            </div>
+          </div>
+          <div class="wish-card">
+            <div class="wish-pic">
+              <span class="wish-tag">Gluten Free</span>
+              <button class="wish-heart"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9Z"/></svg></button>
+              <img src="assets/images/jowar-flour.jpg" alt="Jowar Flour" />
+            </div>
+            <div class="wish-body">
+              <h3>Jowar Flour</h3>
+              <div class="price">₹129</div>
+              <div class="wish-btns">
+                <button class="wish-add">Add to Cart <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+                <button class="wish-remove">Remove</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PROFILE PANEL -->
+      <section class="panel" id="panel-profile">
+        <div class="panel-head">
+          <div>
+            <h2>Profile &amp; settings</h2>
+            <p>Update your details and notification preferences</p>
+          </div>
+        </div>
+        <div class="profile-card">
+          <div class="pf-row">
+            <div class="field full"><label>Full Name</label><input class="input" type="text" value="Ananya Sharma" /></div>
+          </div>
+          <div class="pf-row">
+            <div class="field full"><label>Email address</label><input class="input" type="email" value="ananya.sharma@email.com" /></div>
+          </div>
+          <div class="pf-row">
+            <div class="field"><label>Phone</label><input class="input" type="tel" value="+91 98230 12345" /></div>
+            <div class="field"><label>Date of Birth</label><input class="input" type="text" placeholder="DD / MM / YYYY" /></div>
+          </div>
+          <div class="pf-actions">
+            <button class="save-btn">Save Changes <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 7 9 18l-5-5"/></svg></button>
+            <button class="cancel-btn">Cancel</button>
+          </div>
+        </div>
+        <div class="pref-card">
+          <h3>Notifications</h3>
+          <div class="pref-row">
+            <div class="pr-text"><div class="t">Order updates</div><div class="d">Dispatch, out-for-delivery and delivered alerts</div></div>
+            <button class="toggle on" aria-label="Toggle order updates"></button>
+          </div>
+          <div class="pref-row">
+            <div class="pr-text"><div class="t">Promotions</div><div class="d">Exclusive offers, discounts and seasonal deals</div></div>
+            <button class="toggle on" aria-label="Toggle promotions"></button>
+          </div>
+          <div class="pref-row">
+            <div class="pr-text"><div class="t">Newsletter</div><div class="d">Monthly recipes, milling notes and grain wisdom</div></div>
+            <button class="toggle" aria-label="Toggle newsletter"></button>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</div>
+
+<!-- MINI FOOTER -->
+<footer class="mini">
+  <div class="wrap mini-inner">
+    <div class="l">&copy; 2024 Medhavat Foods Pvt Ltd. All rights reserved.</div>
+    <div class="links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="#">Contact Us</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Hamburger
+  const hamburger = document.getElementById('hamburger');
+  const mobileNav = document.getElementById('mobile-nav');
+  hamburger.addEventListener('click', () => {
+    const open = mobileNav.classList.toggle('open');
+    hamburger.classList.toggle('open', open);
+    hamburger.setAttribute('aria-expanded', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+  mobileNav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    mobileNav.classList.remove('open');
+    hamburger.classList.remove('open');
+    hamburger.setAttribute('aria-expanded','false');
+    document.body.style.overflow = '';
+  }));
+
+  // Panel switching
+  document.querySelectorAll('.side a[data-panel]').forEach(link => {
+    link.addEventListener('click', () => {
+      const panel = link.dataset.panel;
+      document.querySelectorAll('.side a[data-panel]').forEach(a => a.classList.toggle('on', a === link));
+      document.querySelectorAll('.panel').forEach(p => p.classList.toggle('on', p.id === 'panel-' + panel));
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+
+  // Toggles
+  document.querySelectorAll('.toggle').forEach(t => t.addEventListener('click', () => t.classList.toggle('on')));
+</script>
+</body>
+</html>
