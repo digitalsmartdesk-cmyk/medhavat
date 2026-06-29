@@ -1,0 +1,770 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Shop — Medhavat | Stone-Milled Flours & Mixes</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --green:#1A4D22;
+    --green-deep:#112E14;
+    --green-soft:#2A6030;
+    --green-tint:#E4EFE0;
+    --green-tint-2:#C8DFC0;
+    --navy:#1E2D6E;
+    --navy-soft:#2E3D88;
+    --gold:#A67820;
+    --gold-soft:#C89A30;
+    --gold-light:#E8C96A;
+    --cream:#F5EDD8;
+    --cream-warm:#EDE0C4;
+    --ink:#1A1510;
+    --ink-soft:#5A4E3C;
+    --rule:rgba(26,21,16,.10);
+    --rule-strong:rgba(26,21,16,.18);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--cream);color:var(--ink);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  img{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+  button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit}
+  select{font-family:inherit;cursor:pointer}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 40px}
+  h1,h2,h3,h4,.serif{font-family:'Cormorant Garamond',serif;font-weight:600;letter-spacing:.01em;color:var(--ink)}
+  .eyebrow{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--gold)}
+
+  /* ====================== HEADER ====================== */
+  .header{position:sticky;top:0;z-index:60;background:rgba(245,237,216,.94);backdrop-filter:saturate(140%) blur(10px);border-bottom:1px solid var(--rule)}
+  .header-inner{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:84px;gap:24px}
+  .brand img{height:52px;width:auto}
+  .nav{display:flex;gap:38px;justify-content:center}
+  .nav a{font-size:14px;font-weight:500;color:var(--ink);letter-spacing:.02em;position:relative;padding:6px 0}
+  .nav a.active::after,.nav a:hover::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:2px;background:var(--gold)}
+  .header-right{display:flex;justify-content:flex-end;align-items:center;gap:18px}
+  .icon-btn{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;color:var(--ink);transition:background .2s}
+  .icon-btn:hover{background:rgba(26,77,34,.08)}
+  .cart{position:relative}
+  .cart-badge{position:absolute;top:4px;right:4px;background:var(--gold);color:#fff;font-size:10px;font-weight:700;min-width:16px;height:16px;border-radius:8px;display:grid;place-items:center;padding:0 4px}
+  .login{font-size:13px;font-weight:500;color:var(--ink-soft)}
+  .login:hover{color:var(--green)}
+
+  /* ====================== PAGE HERO ====================== */
+  .page-hero{background:var(--navy);color:#F5EDD8;position:relative;overflow:hidden;padding:64px 0 72px}
+  .page-hero .crumb{display:flex;align-items:center;gap:10px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:rgba(245,237,216,.7);margin-bottom:22px}
+  .page-hero .crumb a:hover{color:var(--gold-soft)}
+  .page-hero .crumb .sep{opacity:.5}
+  .page-hero .crumb .here{color:var(--gold-soft)}
+  .page-hero h1{font-family:'Cormorant Garamond',serif;font-weight:500;color:#FFF8E7;font-size:64px;line-height:1.05;letter-spacing:.01em}
+  .page-hero h1 em{font-style:italic;color:var(--gold-light);font-weight:500}
+  .page-hero p.sub{font-size:17px;line-height:1.6;color:rgba(245,237,216,.78);margin-top:18px;max-width:580px}
+  .page-hero-row{display:flex;justify-content:space-between;align-items:flex-end;gap:60px}
+  .page-hero-meta{display:flex;align-items:center;gap:28px;color:rgba(245,237,216,.7);font-size:13px;letter-spacing:.04em}
+  .page-hero-meta strong{color:var(--gold-light);font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:500;display:block;line-height:1;margin-bottom:6px}
+  .page-hero-meta .m-item{text-align:right}
+  .page-hero-pattern{position:absolute;inset:0;opacity:.07;pointer-events:none}
+
+  /* ====================== FILTER BAR ====================== */
+  .filter-bar{position:sticky;top:84px;z-index:50;background:rgba(245,237,216,.96);backdrop-filter:saturate(140%) blur(8px);border-bottom:1px solid var(--rule)}
+  .filter-inner{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:40px;padding:18px 0}
+
+  .tabs{display:flex;align-items:center;gap:4px;background:rgba(26,77,34,.06);padding:5px;border-radius:999px}
+  .tabs button{position:relative;padding:9px 20px;border-radius:999px;font-size:13px;font-weight:600;letter-spacing:.04em;color:var(--ink-soft);transition:color .15s, background .15s}
+  .tabs button:hover{color:var(--green)}
+  .tabs button.on{background:var(--green);color:#fff;box-shadow:0 4px 12px -4px rgba(26,77,34,.5)}
+  .tabs button .count{margin-left:6px;font-size:11px;opacity:.75;font-weight:500}
+
+  .grain-filter{display:flex;align-items:center;gap:14px;justify-content:center}
+  .grain-label{font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft)}
+  .grain-pills{display:flex;gap:6px}
+  .pill{display:inline-flex;align-items:center;gap:7px;padding:7px 13px;border:1px solid var(--rule);border-radius:999px;font-size:12px;font-weight:600;letter-spacing:.02em;color:var(--ink);background:#fff;transition:border-color .15s, color .15s}
+  .pill:hover{border-color:var(--green)}
+  .pill.on{border-color:var(--green);background:var(--green);color:#FFF8E7}
+
+  .sort{display:flex;align-items:center;gap:10px}
+  .sort label{font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft)}
+  .select-wrap{position:relative}
+  .select-wrap select{appearance:none;-webkit-appearance:none;border:1px solid var(--rule);background:#fff;padding:10px 38px 10px 16px;border-radius:999px;font-size:13px;font-weight:600;color:var(--ink);min-width:188px}
+  .select-wrap select:hover{border-color:var(--green)}
+  .select-wrap::after{content:"";position:absolute;right:16px;top:50%;width:8px;height:8px;border-right:1.5px solid var(--ink);border-bottom:1.5px solid var(--ink);transform:translateY(-70%) rotate(45deg);pointer-events:none}
+
+  /* ====================== SHOP SECTION ====================== */
+  .shop{padding:60px 0 110px}
+  .results-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:32px}
+  .results-row .count{font-size:13px;color:var(--ink-soft);letter-spacing:.02em}
+  .results-row .count strong{color:var(--green-deep);font-weight:600}
+  .active-filters{display:flex;gap:8px;align-items:center}
+  .chip{display:inline-flex;align-items:center;gap:8px;padding:6px 8px 6px 12px;border-radius:999px;font-size:12px;background:var(--cream-warm);color:var(--green-deep);font-weight:500}
+  .chip .x{width:18px;height:18px;border-radius:50%;background:rgba(26,77,34,.12);display:grid;place-items:center;font-size:11px;line-height:1;color:var(--green)}
+  .clear-link{font-size:12px;color:var(--ink-soft);border-bottom:1px solid var(--rule);padding-bottom:1px;margin-left:4px}
+  .clear-link:hover{color:var(--green)}
+
+  .product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:28px}
+  .product{background:#fff;border:1px solid var(--rule);border-radius:6px;overflow:hidden;display:flex;flex-direction:column;transition:transform .25s, box-shadow .25s;position:relative}
+  .product:hover{transform:translateY(-4px);box-shadow:0 18px 40px -16px rgba(26,21,16,.18)}
+  .product .pic{position:relative;aspect-ratio:1/1;background:var(--cream-warm);overflow:hidden}
+  .product .pic img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+  .product:hover .pic img{transform:scale(1.04)}
+  .heart{position:absolute;top:14px;right:14px;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.92);display:grid;place-items:center;color:var(--gold);z-index:2;transition:background .15s, color .15s}
+  .heart:hover{background:var(--green);color:#FFF8E7}
+  .quick{position:absolute;left:14px;right:14px;bottom:14px;background:rgba(255,255,255,.96);color:var(--ink);padding:10px 14px;border-radius:999px;font-size:12px;font-weight:600;letter-spacing:.06em;text-align:center;opacity:0;transform:translateY(8px);transition:opacity .25s, transform .25s;z-index:2}
+  .product:hover .quick{opacity:1;transform:translateY(0)}
+  .tag{position:absolute;top:14px;left:14px;font-size:9px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;padding:5px 9px;border-radius:3px;z-index:2}
+  .tag.b-green{background:var(--green);color:#fff}
+  .tag.b-gold{background:var(--gold);color:#fff}
+  .tag.b-navy{background:var(--navy);color:#fff}
+
+  .body{padding:20px 20px 22px;display:flex;flex-direction:column;gap:6px;flex:1}
+  .row-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:2px}
+  .category-tag{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:600}
+  .weight-tag{font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--ink-soft)}
+
+  .product h3{font-size:20px;line-height:1.18;font-weight:600;margin-top:4px}
+  .product .desc{font-size:13px;color:var(--ink-soft);line-height:1.5}
+  .weight{font-size:11px;color:var(--ink-soft);letter-spacing:.16em;text-transform:uppercase;font-weight:500;margin-top:2px}
+
+  .row-bot{display:flex;align-items:center;justify-content:space-between;margin-top:14px;padding-top:16px;border-top:1px dashed var(--rule)}
+  .price{display:flex;align-items:baseline;gap:8px}
+  .price .now{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--green-deep);font-weight:700}
+  .price .unit{font-size:11px;color:var(--ink-soft)}
+  .add{display:inline-flex;align-items:center;gap:8px;background:var(--green);color:#fff;padding:10px 16px;border-radius:6px;font-size:11px;font-weight:700;letter-spacing:.10em;text-transform:uppercase;transition:background .15s, transform .15s}
+  .add:hover{background:var(--green-deep)}
+  .add svg{transition:transform .2s}
+  .add:hover svg{transform:translateX(2px)}
+
+  /* assurance row */
+  .assurance{margin-top:80px;background:var(--cream-warm);border-top:1px solid rgba(166,120,32,.08);border-bottom:1px solid rgba(166,120,32,.08)}
+  .assurance-row{display:grid;grid-template-columns:repeat(4,1fr);align-items:center;padding:32px 0}
+  .as-item{display:flex;align-items:center;gap:14px;padding:0 24px;border-right:1px solid rgba(166,120,32,.14)}
+  .as-item:last-child{border-right:0}
+  .as-ic{flex-shrink:0;width:42px;height:42px;border-radius:50%;background:#fff;display:grid;place-items:center;color:var(--green);border:1px solid rgba(26,77,34,.16)}
+  .as-title{font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:600;color:var(--green-deep);line-height:1.15}
+  .as-sub{font-size:11px;color:var(--ink-soft);margin-top:2px;letter-spacing:.02em}
+
+  /* ====================== FOOTER ====================== */
+  footer{background:#110E0A;color:rgba(245,237,216,.7);padding:80px 0 0}
+  .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr 1fr;gap:48px;padding-bottom:60px}
+  .foot-brand img{height:56px;background:var(--cream);padding:8px 12px;border-radius:6px}
+  .foot-brand p{margin-top:20px;font-size:13px;line-height:1.7;max-width:280px;color:rgba(245,237,216,.7)}
+  .socials{display:flex;gap:10px;margin-top:24px}
+  .socials a{width:36px;height:36px;border-radius:50%;border:1px solid rgba(245,237,216,.18);display:grid;place-items:center;color:rgba(245,237,216,.7);transition:background .15s,color .15s,border-color .15s}
+  .socials a:hover{background:var(--gold);color:#fff;border-color:var(--gold)}
+  .foot-col h4{font-size:12px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-soft);margin-bottom:22px}
+  .foot-col ul{list-style:none;display:flex;flex-direction:column;gap:12px}
+  .foot-col a{font-size:13px;color:rgba(245,237,216,.7)}
+  .foot-col a:hover{color:#FFF8E7}
+  .copy{border-top:1px solid rgba(245,237,216,.10);padding:24px 0;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:rgba(245,237,216,.45)}
+  .copy .pays{display:flex;gap:10px;align-items:center}
+  .copy .pays span{padding:4px 10px;border:1px solid rgba(245,237,216,.14);border-radius:4px;font-size:10px;letter-spacing:.1em;font-weight:600}
+
+  svg{display:block}
+
+  /* ====================== HAMBURGER ====================== */
+  .hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;width:40px;height:40px;padding:8px;cursor:pointer;background:none;border:0;border-radius:6px}
+  .hamburger span{display:block;width:100%;height:1.5px;background:var(--ink);border-radius:2px;transition:transform .25s,opacity .2s}
+  .hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+  .hamburger.open span:nth-child(2){opacity:0}
+  .hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+  .mobile-nav{display:none;position:fixed;inset:0;top:70px;background:rgba(245,237,216,.97);backdrop-filter:blur(10px);z-index:40;flex-direction:column;padding:32px 24px;gap:0;overflow-y:auto}
+  .mobile-nav.open{display:flex}
+  .mobile-nav a.nav-link{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:500;color:var(--ink);padding:16px 0;border-bottom:1px solid var(--rule);display:flex;justify-content:space-between;align-items:center}
+  .mobile-nav a.nav-link::after{content:"→";font-family:'DM Sans',sans-serif;font-size:16px;color:var(--gold)}
+  .mobile-nav .m-actions{display:flex;gap:12px;margin-top:32px}
+  .mobile-nav .m-actions a{font-size:14px;font-weight:600;padding:14px 20px;border-radius:999px;flex:1;text-align:center}
+  .m-gold{background:var(--gold);color:#fff}
+  .m-outline{border:1.5px solid var(--navy);color:var(--navy)}
+
+  /* ====================== RESPONSIVE ====================== */
+  @media(max-width:900px){
+    .wrap{padding:0 28px}
+    /* Header */
+    .header-inner{grid-template-columns:1fr auto;height:70px}
+    .nav,.login{display:none}
+    .hamburger{display:flex}
+    .filter-bar{top:70px}
+    /* Page hero */
+    .page-hero{padding:44px 0 52px}
+    .page-hero-row{flex-direction:column;gap:28px;align-items:flex-start}
+    .page-hero h1{font-size:44px}
+    .page-hero p.sub{font-size:15px}
+    .page-hero-meta{flex-direction:row;gap:32px;justify-content:flex-start}
+    .page-hero-meta .m-item{text-align:left}
+    /* Filter bar */
+    .filter-inner{grid-template-columns:1fr;gap:14px;padding:14px 0}
+    .tabs{overflow-x:auto;scrollbar-width:none;justify-content:flex-start;border-radius:12px}
+    .grain-filter{flex-wrap:wrap;justify-content:flex-start;gap:10px}
+    .grain-pills{flex-wrap:wrap;gap:6px}
+    .sort{justify-content:flex-start}
+    .select-wrap select{min-width:0;width:100%}
+    .sort{flex:1}
+    .select-wrap{flex:1}
+    /* Products */
+    .product-grid{grid-template-columns:repeat(2,1fr);gap:20px}
+    /* Assurance */
+    .assurance-row{grid-template-columns:repeat(2,1fr);padding:0}
+    .as-item{padding:20px 16px;border-right:0;border-bottom:1px solid rgba(166,120,32,.14)}
+    .as-item:nth-child(odd){border-right:1px solid rgba(166,120,32,.14)}
+    .as-item:nth-last-child(-n+2){border-bottom:0}
+    /* Footer */
+    .foot-grid{grid-template-columns:1fr 1fr;gap:40px}
+    .foot-brand{grid-column:1/-1}
+    .copy{flex-direction:column;gap:10px;text-align:center}
+  }
+
+  @media(max-width:600px){
+    .wrap{padding:0 20px}
+    .header-inner{height:64px}
+    .brand img{height:40px}
+    .mobile-nav{top:64px}
+    /* Page hero */
+    .page-hero{padding:32px 0 40px}
+    .page-hero h1{font-size:30px;line-height:1.08}
+    .page-hero p.sub{font-size:14px;margin-top:12px}
+    .page-hero-meta{gap:20px}
+    .page-hero-meta strong{font-size:22px}
+    /* Filter */
+    .filter-inner{gap:12px;padding:12px 0}
+    .tabs button{padding:8px 14px;font-size:12px}
+    .results-row{flex-direction:column;gap:12px;align-items:flex-start}
+    .shop{padding:36px 0 72px}
+    /* Products */
+    .product-grid{grid-template-columns:1fr;gap:14px}
+    /* Assurance */
+    .assurance-row{grid-template-columns:1fr}
+    .as-item:nth-child(odd){border-right:0}
+    .as-item:nth-last-child(-n+2){border-bottom:1px solid rgba(166,120,32,.14)}
+    .as-item:last-child{border-bottom:0}
+    /* Footer */
+    .foot-grid{grid-template-columns:1fr;gap:32px}
+    .foot-brand{grid-column:auto}
+  }
+</style>
+</head>
+<body>
+
+<!-- ====================== HEADER ====================== -->
+<header class="header" data-screen-label="Header">
+  <div class="wrap header-inner">
+    <a class="brand" href="index.html">
+      <img src="assets/images/logo.png" alt="Medhavat — Wise Flours & Mixes" />
+    </a>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="shop.html" class="active">Shop</a>
+      <a href="product.html">Product</a>
+      <a href="account.html">Account</a>
+      <a href="#">Contact</a>
+    </nav>
+    <div class="header-right">
+      <a href="login.html" class="login">Sign in</a>
+      <button class="icon-btn" aria-label="Search">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      </button>
+      <button class="icon-btn cart" aria-label="Cart" onclick="location.href='checkout.html'">
+        <svg width="18" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h12l-1.2 11a2 2 0 0 1-2 1.8H9.2a2 2 0 0 1-2-1.8L6 7Z"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg>
+        <span class="cart-badge">2</span>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile nav -->
+<nav class="mobile-nav" id="mobile-nav">
+  <a href="index.html" class="nav-link">Home</a>
+  <a href="shop.html" class="nav-link">Shop</a>
+  <a href="product.html" class="nav-link">Product</a>
+  <a href="account.html" class="nav-link">Account</a>
+  <a href="order-tracking.html" class="nav-link">Order Tracking</a>
+  <div class="m-actions">
+    <a class="m-gold" href="checkout.html">Cart (2) →</a>
+    <a class="m-outline" href="login.html">Sign in</a>
+  </div>
+</nav>
+
+<!-- ====================== PAGE HERO ====================== -->
+<section class="page-hero" data-screen-label="Page Hero">
+  <svg class="page-hero-pattern" viewBox="0 0 1200 320" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs>
+      <pattern id="wheat-hero" x="0" y="0" width="220" height="220" patternUnits="userSpaceOnUse" patternTransform="rotate(15)">
+        <path d="M110 30 L110 170" stroke="#E8C96A" stroke-width="1.2" stroke-linecap="round"/>
+        <path d="M110 60 C 95 50, 80 55, 78 70 C 93 70, 105 65, 110 60Z" fill="none" stroke="#E8C96A" stroke-width="1" stroke-linecap="round"/>
+        <path d="M110 80 C 125 70, 140 75, 142 90 C 127 90, 115 85, 110 80Z" fill="none" stroke="#E8C96A" stroke-width="1" stroke-linecap="round"/>
+        <path d="M110 100 C 95 90, 80 95, 78 110 C 93 110, 105 105, 110 100Z" fill="none" stroke="#E8C96A" stroke-width="1" stroke-linecap="round"/>
+        <circle cx="40" cy="190" r="1.8" fill="#E8C96A"/>
+        <circle cx="190" cy="40" r="1.8" fill="#E8C96A"/>
+      </pattern>
+    </defs>
+    <rect width="1200" height="320" fill="url(#wheat-hero)"/>
+  </svg>
+  <div class="wrap">
+    <div class="crumb">
+      <a href="index.html">Home</a>
+      <span class="sep">›</span>
+      <span class="here">Shop</span>
+    </div>
+    <div class="page-hero-row">
+      <div>
+        <span class="eyebrow">OUR COLLECTION</span>
+        <h1>Stone-Milled <em>Flours</em> &amp; Mixes</h1>
+        <p class="sub">Crafted from the finest Indian grains, stone-milled to preserve nutrition and authentic taste.</p>
+      </div>
+      <div class="page-hero-meta">
+        <div class="m-item"><strong>11</strong><div>Products</div></div>
+        <div class="m-item"><strong>100%</strong><div>Natural</div></div>
+        <div class="m-item"><strong>0</strong><div>Preservatives</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== FILTER BAR ====================== -->
+<section class="filter-bar" data-screen-label="Filter Bar">
+  <div class="wrap filter-inner">
+    <div class="tabs" role="tablist">
+      <button class="on">All <span class="count">11</span></button>
+      <button>Atta <span class="count">2</span></button>
+      <button>Ancient Grain <span class="count">4</span></button>
+      <button>Ready Mix <span class="count">3</span></button>
+      <button>Legume Flour <span class="count">2</span></button>
+    </div>
+
+    <div class="grain-filter">
+      <span class="grain-label">Type</span>
+      <div class="grain-pills">
+        <button class="pill on">All</button>
+        <button class="pill">Gluten Free</button>
+        <button class="pill">High Fibre</button>
+        <button class="pill">High Protein</button>
+      </div>
+    </div>
+
+    <div class="sort">
+      <label for="sort-select">Sort</label>
+      <div class="select-wrap">
+        <select id="sort-select">
+          <option>Bestselling</option>
+          <option>Price: Low to High</option>
+          <option>Price: High to Low</option>
+          <option>Newest</option>
+        </select>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== SHOP GRID ====================== -->
+<section class="shop" data-screen-label="Shop Grid">
+  <div class="wrap">
+
+    <div class="results-row">
+      <div class="count">Showing <strong>11 of 11</strong> products</div>
+      <div class="active-filters">
+        <span class="chip">All categories <span class="x">×</span></span>
+        <a href="#" class="clear-link">Clear filters</a>
+      </div>
+    </div>
+
+    <div class="product-grid">
+
+      <!-- 1. Whole Wheat Atta -->
+      <article class="product">
+        <div class="pic">
+          <span class="tag b-green">Bestseller</span>
+          <button class="heart" aria-label="Save">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9Z"/></svg>
+          </button>
+          <img src="assets/images/wheat-atta.jpg" alt="Whole Wheat Atta" />
+          <button class="quick">Quick view</button>
+        </div>
+        <div class="body">
+          <div class="row-top">
+            <span class="category-tag">Atta</span>
+            <span class="weight-tag">5 kg</span>
+          </div>
+          <h3><a href="product.html" style="color:inherit">Whole Wheat Atta</a></h3>
+          <p class="desc">Stone-milled for natural goodness. Rich in fibre, source of protein — soft rotis every single time.</p>
+          <div class="weight">Net wt. 5 kg</div>
+          <div class="row-bot">
+            <div class="price"><span class="now">₹299</span></div>
+            <button class="add">Add <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+          </div>
+        </div>
+      </article>
+
+      <!-- 2. Multigrain Atta -->
+      <article class="product">
+        <div class="pic">
+          <span class="tag b-green">Bestseller</span>
+          <button class="heart" aria-label="Save">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9Z"/></svg>
+          </button>
+          <img src="assets/images/multigrain-atta.jpg" alt="Multigrain Atta" />
+          <button class="quick">Quick view</button>
+        </div>
+        <div class="body">
+          <div class="row-top">
+            <span class="category-tag">Atta</span>
+            <span class="weight-tag">5 kg</span>
+          </div>
+          <h3><a href="product.html" style="color:inherit">Multigrain Atta</a></h3>
+          <p class="desc">Goodness of 7 powerful grains — wheat, jowar, bajra, ragi, oats, chana &amp; soya. Every roti works harder.</p>
+          <div class="weight">Net wt. 5 kg</div>
+          <div class="row-bot">
+            <div class="price"><span class="now">₹349</span></div>
+            <button class="add">Add <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+          </div>
+        </div>
+      </article>
+
+      <!-- 3. Premium Idli Mix -->
+      <article class="product">
+        <div class="pic">
+          <span class="tag b-gold">New</span>
+          <button class="heart" aria-label="Save">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9Z"/></svg>
+          </button>
+          <img src="assets/images/idli-mix.jpg" alt="Premium Idli Mix" />
+          <button class="quick">Quick view</button>
+        </div>
+        <div class="body">
+          <div class="row-top">
+            <span class="category-tag">Ready Mix</span>
+            <span class="weight-tag">1 kg</span>
+          </div>
+          <h3><a href="product.html" style="color:inherit">Premium Idli Mix</a></h3>
+          <p class="desc">Soft, spongy and delicious. Authentic South Indian taste — made with carefully selected ingredients, quick to prepare.</p>
+          <div class="weight">Net wt. 1 kg</div>
+          <div class="row-bot">
+            <div class="price"><span class="now">₹129</span></div>
+            <button class="add">Add <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+          </div>
+        </div>
+      </article>
+
+      <!-- 4. Ragi Flour -->
+      <article class="product">
+        <div class="pic">
+          <span class="tag b-navy">Gluten Free</span>
+          <button class="heart" aria-label="Save">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9Z"/></svg>
+          </button>
+          <img src="assets/images/ragi-flour.jpg" alt="Ragi Flour" />
+          <button class="quick">Quick view</button>
+        </div>
+        <div class="body">
+          <div class="row-top">
+            <span class="category-tag">Ancient Grain</span>
+            <span class="weight-tag">1 kg</span>
+          </div>
+          <h3><a href="product.html" style="color:inherit">Ragi Flour</a></h3>
+          <p class="desc">Rich in calcium &amp; iron. Stone-milled for maximum nutrition. Stronger bones, good for heart — natural energy.</p>
+          <div class="weight">Net wt. 1 kg</div>
+          <div class="row-bot">
+            <div class="price"><span class="now">₹149</span></div>
+            <button class="add">Add <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+          </div>
+        </div>
+      </article>
+
+      <!-- 5. Bajra Flour -->
+      <article class="product">
+        <div class="pic">
+          <span class="tag b-navy">Gluten Free</span>
+          <button class="heart" aria-label="Save">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9Z"/></svg>
+          </button>
+          <img src="assets/images/bajra-flour.jpg" alt="Bajra Flour" />
+          <button class="quick">Quick view</button>
+        </div>
+        <div class="body">
+          <div class="row-top">
+            <span class="category-tag">Ancient Grain</span>
+            <span class="weight-tag">1 kg</span>
+          </div>
+          <h3><a href="product.html" style="color:inherit">Bajra Flour</a></h3>
+          <p class="desc">Rich in iron and magnesium. A winter staple across Rajasthan and Gujarat — hearty, warming and naturally gluten-free.</p>
+          <div class="weight">Net wt. 1 kg</div>
+          <div class="row-bot">
+            <div class="price"><span class="now">₹119</span></div>
+            <button class="add">Add <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+          </div>
+        </div>
+      </article>
+
+      <!-- 6. Besan (Gram Flour) -->
+      <article class="product">
+        <div class="pic">
+          <button class="heart" aria-label="Save">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9Z"/></svg>
+          </button>
+          <img src="assets/images/besan.jpg" alt="Besan (Gram Flour)" />
+          <button class="quick">Quick view</button>
+        </div>
+        <div class="body">
+          <div class="row-top">
+            <span class="category-tag">Legume Flour</span>
+            <span class="weight-tag">1 kg</span>
+          </div>
+          <h3><a href="product.html" style="color:inherit">Besan (Gram Flour)</a></h3>
+          <p class="desc">Stone-ground chana dal. Fine, aromatic and high in protein — perfect for pakoras, chilla, ladoo and kadhi.</p>
+          <div class="weight">Net wt. 1 kg</div>
+          <div class="row-bot">
+            <div class="price"><span class="now">₹139</span></div>
+            <button class="add">Add <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+          </div>
+        </div>
+      </article>
+
+      <!-- 7. Chana Sattu -->
+      <article class="product">
+        <div class="pic">
+          <button class="heart" aria-label="Save">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9Z"/></svg>
+          </button>
+          <img src="assets/images/chana-sattu.jpg" alt="Chana Sattu" />
+          <button class="quick">Quick view</button>
+        </div>
+        <div class="body">
+          <div class="row-top">
+            <span class="category-tag">Legume Flour</span>
+            <span class="weight-tag">500 g</span>
+          </div>
+          <h3><a href="product.html" style="color:inherit">Chana Sattu</a></h3>
+          <p class="desc">Roasted Bengal gram flour — the powerhouse of Bihar. High protein, cooling in summer, endlessly versatile.</p>
+          <div class="weight">Net wt. 500 g</div>
+          <div class="row-bot">
+            <div class="price"><span class="now">₹99</span></div>
+            <button class="add">Add <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+          </div>
+        </div>
+      </article>
+
+      <!-- 8. Jowar Flour -->
+      <article class="product">
+        <div class="pic">
+          <span class="tag b-navy">Gluten Free</span>
+          <button class="heart" aria-label="Save">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9Z"/></svg>
+          </button>
+          <img src="assets/images/jowar-flour.jpg" alt="Jowar Flour" />
+          <button class="quick">Quick view</button>
+        </div>
+        <div class="body">
+          <div class="row-top">
+            <span class="category-tag">Ancient Grain</span>
+            <span class="weight-tag">1 kg</span>
+          </div>
+          <h3><a href="product.html" style="color:inherit">Jowar Flour</a></h3>
+          <p class="desc">High in fibre and B vitamins. The Deccan's ancient grain — ideal for bhakri, rotla and gluten-free baking.</p>
+          <div class="weight">Net wt. 1 kg</div>
+          <div class="row-bot">
+            <div class="price"><span class="now">₹129</span></div>
+            <button class="add">Add <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+          </div>
+        </div>
+      </article>
+
+      <!-- 9. Jowar Sorghum Atta -->
+      <article class="product">
+        <div class="pic">
+          <span class="tag b-navy">Gluten Free</span>
+          <button class="heart" aria-label="Save">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9Z"/></svg>
+          </button>
+          <img src="assets/images/jowar-sorghum.jpg" alt="Jowar Sorghum Atta" />
+          <button class="quick">Quick view</button>
+        </div>
+        <div class="body">
+          <div class="row-top">
+            <span class="category-tag">Ancient Grain</span>
+            <span class="weight-tag">1 kg</span>
+          </div>
+          <h3><a href="product.html" style="color:inherit">Jowar Sorghum Atta</a></h3>
+          <p class="desc">Fine-milled sorghum blend for soft rotis and flatbreads. Naturally gluten-free with a mild, earthy sweetness.</p>
+          <div class="weight">Net wt. 1 kg</div>
+          <div class="row-bot">
+            <div class="price"><span class="now">₹129</span></div>
+            <button class="add">Add <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+          </div>
+        </div>
+      </article>
+
+      <!-- 10. Multigrain Roti Mix -->
+      <article class="product">
+        <div class="pic">
+          <button class="heart" aria-label="Save">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9Z"/></svg>
+          </button>
+          <img src="assets/images/multigrain-roti-mix.jpg" alt="Multigrain Roti Mix" />
+          <button class="quick">Quick view</button>
+        </div>
+        <div class="body">
+          <div class="row-top">
+            <span class="category-tag">Ready Mix</span>
+            <span class="weight-tag">500g</span>
+          </div>
+          <h3><a href="product.html" style="color:inherit">Multigrain Roti Mix</a></h3>
+          <p class="desc">Pre-blended multigrain mix for nutritious rotis in minutes. Six grains, zero effort — just add water and roll.</p>
+          <div class="weight">Net wt. 500 g</div>
+          <div class="row-bot">
+            <div class="price"><span class="now">₹119</span></div>
+            <button class="add">Add <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+          </div>
+        </div>
+      </article>
+
+      <!-- 11. Ragi Dosa Mix -->
+      <article class="product">
+        <div class="pic">
+          <button class="heart" aria-label="Save">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9Z"/></svg>
+          </button>
+          <img src="assets/images/ragi-dosa-mix.jpg" alt="Ragi Dosa Mix" />
+          <button class="quick">Quick view</button>
+        </div>
+        <div class="body">
+          <div class="row-top">
+            <span class="category-tag">Ready Mix</span>
+            <span class="weight-tag">500g</span>
+          </div>
+          <h3><a href="product.html" style="color:inherit">Ragi Dosa Mix</a></h3>
+          <p class="desc">Crispy ragi dosas with the goodness of finger millet. Rich in calcium, quick to prepare — a healthier breakfast.</p>
+          <div class="weight">Net wt. 500 g</div>
+          <div class="row-bot">
+            <div class="price"><span class="now">₹109</span></div>
+            <button class="add">Add <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+
+  <!-- assurance row -->
+  <div class="assurance">
+    <div class="wrap assurance-row">
+      <div class="as-item">
+        <div class="as-ic">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h14l3 4v6h-2"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/><path d="M3 7v11h2"/></svg>
+        </div>
+        <div><div class="as-title">Free Shipping</div><div class="as-sub">On orders above ₹499</div></div>
+      </div>
+      <div class="as-item">
+        <div class="as-ic">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m9 12 2 2 4-4"/></svg>
+        </div>
+        <div><div class="as-title">100% Stone-Milled</div><div class="as-sub">Traditional chakki process</div></div>
+      </div>
+      <div class="as-item">
+        <div class="as-ic">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3"/><path d="M5 8h14l-1.2 11a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8L5 8Z"/><path d="M9 12c1 1.5 5 1.5 6 0"/></svg>
+        </div>
+        <div><div class="as-title">Freshly Packed</div><div class="as-sub">Made to order</div></div>
+      </div>
+      <div class="as-item">
+        <div class="as-ic">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </div>
+        <div><div class="as-title">Easy Returns</div><div class="as-sub">7-day return policy</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== FOOTER ====================== -->
+<footer data-screen-label="Footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <img src="assets/images/logo.png" alt="Medhavat" />
+        <p>Premium stone-milled flours &amp; mixes. 100% natural, no additives. Crafted to nourish families the right way.</p>
+        <div class="socials">
+          <a href="#" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor"/></svg></a>
+          <a href="#" aria-label="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M13 22v-8h3l.5-4H13V7.5c0-1.2.4-2 2-2h2V2.2C16.6 2.1 15.4 2 14 2c-3 0-5 1.8-5 5v3H6v4h3v8h4Z"/></svg></a>
+          <a href="#" aria-label="YouTube"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12c0-3-.3-4.5-.8-5.2-.5-.7-1.3-1-2.2-1.1C17 5.5 12 5.5 12 5.5s-5 0-7 .2c-.9 0-1.7.4-2.2 1.1C2.3 7.5 2 9 2 12s.3 4.5.8 5.2c.5.7 1.3 1 2.2 1.1 2 .2 7 .2 7 .2s5 0 7-.2c.9 0 1.7-.4 2.2-1.1.5-.7.8-2.2.8-5.2Zm-12 3V9l5 3-5 3Z"/></svg></a>
+          <a href="#" aria-label="WhatsApp"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4A10 10 0 0 0 4 16l-1 5 5-1A10 10 0 1 0 20 4Zm-8 17a8 8 0 0 1-4.3-1.2l-.3-.2-3 .7.8-3-.2-.3A8 8 0 1 1 12 21Zm4.6-5.6c-.3-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.2-.7.8-.8 1-.1.1-.3.2-.5.1-1.5-.7-2.4-1.3-3.4-3-.3-.4.3-.4.7-1.3.1-.2 0-.4 0-.5 0-.1-.6-1.4-.8-1.9-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4 0-.6.3-.2.2-.8.8-.8 2s.8 2.3.9 2.5c.1.2 1.6 2.4 3.8 3.4 1.4.6 1.9.6 2.6.5.4 0 1.3-.5 1.5-1.1.2-.5.2-1 .1-1.1 0-.1-.2-.2-.5-.3Z"/></svg></a>
+        </div>
+      </div>
+      <div class="foot-col">
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="#">All products</a></li>
+          <li><a href="#">Atta</a></li>
+          <li><a href="#">Ancient Grain</a></li>
+          <li><a href="#">Ready Mix</a></li>
+          <li><a href="#">Legume Flour</a></li>
+          <li><a href="#">Gift hampers</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">Our story</a></li>
+          <li><a href="#">Stone milling</a></li>
+          <li><a href="#">Our farms</a></li>
+          <li><a href="#">Press &amp; media</a></li>
+          <li><a href="#">Careers</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Help</h4>
+        <ul>
+          <li><a href="order-tracking.html">Track your order</a></li>
+          <li><a href="#">Shipping &amp; returns</a></li>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Contact us</a></li>
+          <li><a href="#">Storage guide</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Visit</h4>
+        <ul>
+          <li>Medhavat Foods Pvt Ltd</li>
+          <li>Plot 14, Phase II<br/>Industrial Area<br/>Nagpur 440022</li>
+          <li><a href="#">hello@medhavat.in</a></li>
+          <li>+91 712 2448 900</li>
+        </ul>
+      </div>
+    </div>
+    <div class="copy">
+      <div>© 2026 Medhavat Foods Pvt Ltd. All rights reserved. · <a href="#">Privacy</a> · <a href="#">Terms</a> · FSSAI Lic. 11222006000217 · 100% Veg</div>
+      <div class="pays"><span>UPI</span><span>VISA</span><span>RUPAY</span><span>COD</span></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Hamburger
+  const hamburger = document.getElementById('hamburger');
+  const mobileNav = document.getElementById('mobile-nav');
+  hamburger.addEventListener('click', () => {
+    const open = mobileNav.classList.toggle('open');
+    hamburger.classList.toggle('open', open);
+    hamburger.setAttribute('aria-expanded', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+  mobileNav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    mobileNav.classList.remove('open');
+    hamburger.classList.remove('open');
+    hamburger.setAttribute('aria-expanded','false');
+    document.body.style.overflow = '';
+  }));
+  // Tabs toggle
+  document.querySelectorAll('.tabs button').forEach(b => b.addEventListener('click', e => {
+    document.querySelectorAll('.tabs button').forEach(x => x.classList.remove('on'));
+    b.classList.add('on');
+  }));
+  // Grain pills toggle
+  document.querySelectorAll('.grain-pills .pill').forEach(b => b.addEventListener('click', e => {
+    document.querySelectorAll('.grain-pills .pill').forEach(x => x.classList.remove('on'));
+    b.classList.add('on');
+  }));
+</script>
+
+</body>
+</html>
